@@ -1,0 +1,27 @@
+---
+ - hosts: web
+   remote_user: root
+   tasks:
+    - name:  making  yum configuration in web server machines
+      copy:  src=/home/student/adhoc/yum/my.repo dest=/etc/yum.repos.d/a.repo
+
+    - name: installing  apache web server 
+      yum: name=httpd  state=installed  
+
+    - name: copy index page  from local system to target
+      copy: src=/home/student/adhoc/pages/hello.html dest=/var/www/html/index.html  mode=0644  owner=root  group=root 
+
+    - name: copy index page from an URL  to target 
+      get_url:  url=http://192.168.10.40/b.html   dest=/var/www/html/url.html mode=0644 
+  
+
+    - name:  making sure for httpd  service  
+      service: name=httpd  state=restarted enabled=yes 
+
+    - name: making firewalld running  and enable 
+      service: name=firewalld  state=started  enabled=true 
+
+    - name: applying  firewall for  http or  port  80
+      firewalld: service=http  permanent=true state=enabled immediate=true 
+    
+
