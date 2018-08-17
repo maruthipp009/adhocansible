@@ -1,0 +1,6 @@
+---
+ - hosts: web
+
+   tasks:
+    - name: installing software
+      yum: name="{{ x }}"

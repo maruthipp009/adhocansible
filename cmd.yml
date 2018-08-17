@@ -1,0 +1,19 @@
+---
+ - hosts: all
+   remote_user: root
+   gather_facts: yes
+   vars:
+    x: date
+   tasks:
+    - name: running  "{{ x }}" command on db server 
+      command: "{{ x }}"
+      register: y
+
+    - name: print output of variable y 
+      debug: msg="current date and time  is   {{ y.stdout }}"
+
+    - name: create web page with server ip 
+      copy: content="my current ip is {{ ansible_default_ipv4.address  }} and my RAM is             {{ ansible_memtotal_mb }} MB" dest=/var/www/html/index.html 
+
+
+

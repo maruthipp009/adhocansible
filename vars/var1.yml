@@ -1,0 +1,3 @@
+x: httpd
+y: "hello world this is ansible variable "
+

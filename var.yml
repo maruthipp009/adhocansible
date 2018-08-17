@@ -1,0 +1,29 @@
+---
+#  target section 
+ - hosts: hello
+   remote_user: root
+
+#  variable section from file 
+   vars_files: 
+    - vars/var1.yml
+    - vars/var2.yml
+#  task section  
+   tasks:     
+    - name: install "{{ x }}" package
+      yum: name="{{ x }}" state=installed 
+   
+    - name:  starting  "{{ x }}" service
+      service: name="{{ x }}" state=restarted enabled=yes 
+
+    - name: creating a web page 
+      copy: content="{{ y }}"  dest=/var/www/html/b.html 
+   
+    - name: starting  "{{ a }}" service 
+      service: name="{{ a }}" state=restarted enabled=yes 
+
+    - name: adding firewall rules 
+      firewalld: service="{{ z }}" immediate=true state=enabled permanent=true
+
+
+
+ 
